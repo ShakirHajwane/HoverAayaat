@@ -6,6 +6,7 @@
   "scripts": {
     "build": "vite build",
     "build:pages": "node ./scripts/build-pages.mjs",
+    "demo": "npm run build && node ./scripts/serve-demo.mjs",
     "test": "vitest run"
   },
   "devDependencies": {

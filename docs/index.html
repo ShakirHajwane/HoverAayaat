@@ -211,6 +211,12 @@
             <code>https://&lt;github-username&gt;.github.io/&lt;repo-name&gt;/quran-ref-linker.min.js</code>
           </div>
 
+          <h2 style="margin-top: 24px;">Hosted Demo</h2>
+          <p class="muted">
+            Use the public demo page below to verify the hosted script, tooltip rendering, and audio playback.
+          </p>
+          <div class="url-box"><code id="hosted-demo-url">Loading...</code></div>
+
           <h2 style="margin-top: 24px;">Install Snippet</h2>
           <pre><code id="install-snippet">&lt;script defer src=""&gt;&lt;/script&gt;</code></pre>
 
@@ -293,7 +299,9 @@
 
     <script>
       const scriptUrl = new URL('./quran-ref-linker.min.js', window.location.href).href;
+      const demoUrl = new URL('./demo/', window.location.href).href;
       document.getElementById('hosted-script-url').textContent = scriptUrl;
+      document.getElementById('hosted-demo-url').textContent = demoUrl;
       document.getElementById('install-snippet').textContent =
         `<script defer src="${scriptUrl}"><` + `/script>`;
     </script>

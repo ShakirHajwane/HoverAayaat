@@ -8,7 +8,22 @@ Single-file hover-to-play Quran reference linker for Islamic articles and blog p
 npm ci
 npm test
 npm run build
+npm run demo
 npm run build:pages
+```
+
+## Local demo
+
+Run:
+
+```bash
+npm run demo
+```
+
+Then open:
+
+```text
+http://127.0.0.1:4173/demo/
 ```
 
 ## GitHub Pages output
@@ -28,6 +43,12 @@ The documentation page will be:
 
 ```text
 https://<github-username>.github.io/<repo-name>/
+```
+
+The public demo page will be:
+
+```text
+https://<github-username>.github.io/<repo-name>/demo/
 ```
 
 ## Publishing to GitHub Pages
