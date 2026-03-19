@@ -1,0 +1,20 @@
+{
+  "name": "quran-ref-linker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "build:pages": "node ./scripts/build-pages.mjs",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.1",
+    "@types/node": "^25.5.0",
+    "jsdom": "^29.0.0",
+    "tailwindcss": "^4.2.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vitest": "^4.1.0"
+  }
+}

@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quran Reference Linker</title>
+    <meta
+      name="description"
+      content="Drop-in hover-to-play Quran reference linker for Islamic articles and blog posts."
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f4ea;
+        --panel: rgba(255, 255, 255, 0.84);
+        --ink: #111827;
+        --muted: #475569;
+        --line: rgba(148, 163, 184, 0.28);
+        --accent: #0f766e;
+        --accent-dark: #115e59;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at top left, rgba(255, 244, 214, 0.8), transparent 38%),
+          linear-gradient(180deg, #fcfbf7 0%, var(--bg) 100%);
+        color: var(--ink);
+      }
+
+      main {
+        width: min(1100px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 48px 0 88px;
+      }
+
+      .hero,
+      .panel {
+        border: 1px solid var(--line);
+        background: var(--panel);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 28px 55px rgba(15, 23, 42, 0.08);
+      }
+
+      .hero {
+        padding: 30px;
+        border-radius: 28px;
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: #78716c;
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2.2rem, 6vw, 4.25rem);
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+      }
+
+      .hero p:last-child {
+        max-width: 62ch;
+        margin: 18px 0 0;
+        font-size: 1.04rem;
+        line-height: 1.8;
+        color: var(--muted);
+      }
+
+      .grid {
+        display: grid;
+        gap: 20px;
+        margin-top: 24px;
+        grid-template-columns: 1.2fr 0.8fr;
+      }
+
+      .panel {
+        border-radius: 24px;
+        padding: 24px;
+      }
+
+      h2 {
+        margin: 0 0 14px;
+        font-size: 0.86rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #64748b;
+      }
+
+      p,
+      li,
+      div,
+      span {
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      pre {
+        margin: 0;
+        padding: 16px;
+        overflow-x: auto;
+        border-radius: 18px;
+        background: #0f172a;
+        color: #e2e8f0;
+        font-size: 0.92rem;
+        line-height: 1.7;
+      }
+
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      }
+
+      .stack {
+        display: grid;
+        gap: 18px;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .examples {
+        display: grid;
+        gap: 18px;
+        margin-top: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      }
+
+      .example {
+        padding: 20px;
+        border-radius: 22px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.75);
+      }
+
+      .example h3 {
+        margin: 0 0 10px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #64748b;
+      }
+
+      .callout {
+        margin-top: 18px;
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: rgba(15, 118, 110, 0.09);
+        color: var(--accent-dark);
+      }
+
+      a {
+        color: var(--accent);
+      }
+
+      .url-box {
+        padding: 14px 16px;
+        border-radius: 18px;
+        background: rgba(15, 23, 42, 0.05);
+        color: #1e293b;
+        word-break: break-all;
+      }
+
+      @media (max-width: 860px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <script defer src="./quran-ref-linker.min.js"></script>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Hosted Bundle + Docs</p>
+        <h1>Quran Reference Linker</h1>
+        <p>
+          A single-file JavaScript widget that detects Quran references in Islamic articles and blog posts, then
+          shows a hover/tap tooltip with Arabic text, English translation, and recitation audio.
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <h2>Hosted Script URL</h2>
+          <p class="muted">
+            When this page is published on GitHub Pages, the hosted bundle URL will be the file below. This is the
+            script other publishers can drop into their own sites.
+          </p>
+          <div class="url-box"><code id="hosted-script-url">Loading...</code></div>
+
+          <div class="callout">
+            Standard GitHub Pages pattern:
+            <code>https://&lt;github-username&gt;.github.io/&lt;repo-name&gt;/quran-ref-linker.min.js</code>
+          </div>
+
+          <h2 style="margin-top: 24px;">Install Snippet</h2>
+          <pre><code id="install-snippet">&lt;script defer src=""&gt;&lt;/script&gt;</code></pre>
+
+          <h2 style="margin-top: 24px;">Author Formats</h2>
+          <ul>
+            <li><code>[Quran 2:255]</code></li>
+            <li><code>[Surah Baqarah 2:255]</code></li>
+            <li><code>[2:255]</code></li>
+            <li><code>Quran 36:58</code></li>
+            <li><code>Surah Al-Baqarah 2:255</code></li>
+          </ul>
+
+          <h2 style="margin-top: 24px;">Where To Use It</h2>
+          <ul>
+            <li>Islamic blogs and article archives</li>
+            <li>WordPress, Ghost, Hugo, Jekyll, Next.js, static sites</li>
+            <li>Long-form essays with many Quran references</li>
+            <li>HTML article pages generated from editorial CMS content</li>
+          </ul>
+        </article>
+
+        <aside class="stack">
+          <section class="panel">
+            <h2>Integration Notes</h2>
+            <ul>
+              <li>Add the script once in the site-wide article layout or theme header.</li>
+              <li>The widget auto-scans <code>&lt;p&gt;</code>, <code>&lt;li&gt;</code>, <code>&lt;span&gt;</code>, and <code>&lt;div&gt;</code>.</li>
+              <li>It ignores refs inside links and code blocks.</li>
+              <li>It also watches for late-added content, so SPA or CMS-injected sections still work.</li>
+            </ul>
+          </section>
+
+          <section class="panel">
+            <h2>PDF Limitation</h2>
+            <p class="muted">
+              This works on HTML pages, not inside raw <code>.pdf</code> files served as browser PDF documents.
+              If a PDF is converted into HTML or rendered through a custom HTML text layer, then the widget can be
+              used there too.
+            </p>
+          </section>
+
+          <section class="panel">
+            <h2>Network / CSP</h2>
+            <ul>
+              <li><code>connect-src https://api.quran.com</code></li>
+              <li><code>media-src https://verses.quran.com</code></li>
+              <li><code>style-src 'unsafe-inline'</code> for the current injected shadow-DOM styles</li>
+            </ul>
+          </section>
+        </aside>
+      </section>
+
+      <section class="examples">
+        <article class="example">
+          <h3>Paragraph</h3>
+          <p>Hover this citation: [Quran 2:255].</p>
+        </article>
+
+        <article class="example">
+          <h3>List Item</h3>
+          <ul>
+            <li>Named reference: [Surah Baqarah 2:255]</li>
+            <li>Prefixed inline form: Quran 36:58</li>
+          </ul>
+        </article>
+
+        <article class="example">
+          <h3>Span / Div</h3>
+          <span>This span contains [2:255].</span>
+          <div style="margin-top: 12px;">This div contains Surah Al-Baqarah 2:255.</div>
+        </article>
+
+        <article class="example">
+          <h3>Ignored Content</h3>
+          <p><a href="#ignored">[3:18] inside a link</a></p>
+          <p><code>[4:1] inside code</code></p>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const scriptUrl = new URL('./quran-ref-linker.min.js', window.location.href).href;
+      document.getElementById('hosted-script-url').textContent = scriptUrl;
+      document.getElementById('install-snippet').textContent =
+        `<script defer src="${scriptUrl}"><` + `/script>`;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quran Reference Linker Demo</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+        background:
+          radial-gradient(circle at top left, rgba(244, 239, 221, 0.85), transparent 36%),
+          linear-gradient(180deg, #fcfbf7 0%, #f4efe3 100%);
+        color: #1f2937;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+      }
+
+      main {
+        width: min(960px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 56px 0 96px;
+      }
+
+      .hero {
+        padding: 28px 30px;
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.78);
+        box-shadow: 0 30px 60px rgba(15, 23, 42, 0.08);
+        backdrop-filter: blur(16px);
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        font: 600 0.78rem/1.2 ui-sans-serif, system-ui, sans-serif;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #78716c;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2.2rem, 4vw, 4rem);
+        line-height: 0.95;
+        color: #111827;
+      }
+
+      .lede {
+        margin: 18px 0 0;
+        max-width: 62ch;
+        font-size: 1.06rem;
+        line-height: 1.85;
+        color: #475569;
+      }
+
+      .grid {
+        display: grid;
+        gap: 18px;
+        margin-top: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      .card {
+        padding: 20px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        box-shadow: 0 18px 42px rgba(15, 23, 42, 0.06);
+      }
+
+      .card h2 {
+        margin: 0 0 10px;
+        font: 600 0.9rem/1.2 ui-sans-serif, system-ui, sans-serif;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #64748b;
+      }
+
+      p,
+      li,
+      div,
+      span {
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      code,
+      a {
+        color: #0f766e;
+      }
+
+      button {
+        margin-top: 14px;
+        border: 0;
+        border-radius: 999px;
+        padding: 11px 16px;
+        background: #0f172a;
+        color: #fff;
+        font: 600 0.92rem/1 ui-sans-serif, system-ui, sans-serif;
+        cursor: pointer;
+      }
+
+      #dynamic-area {
+        margin-top: 16px;
+      }
+
+      .muted {
+        color: #64748b;
+      }
+    </style>
+    <script src="/dist/quran-ref-linker.min.js"></script>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Local Verification Page</p>
+        <h1>Hover or tap the Quran references below.</h1>
+        <p class="lede">
+          This page exercises the built widget from the exact production bundle. It includes paragraph, list,
+          span, and div references, plus excluded tags and late-added content for MutationObserver coverage.
+        </p>
+      </section>
+
+      <section class="grid" aria-label="Demo content">
+        <article class="card">
+          <h2>Paragraph</h2>
+          <p>
+            The script should pick up bracketed forms like [Quran 2:255] and show the tooltip after a short
+            hover delay.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>List Item</h2>
+          <ul>
+            <li>It should also support named references such as [Surah Baqarah 2:255].</li>
+            <li>Unbracketed prefixed text should work too: Quran 36:58.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Span / Div</h2>
+          <span>This inline span includes [2:255] as a numeric bracketed reference.</span>
+          <div style="margin-top: 14px;">A block div can include Surah Al-Baqarah 2:255 as well.</div>
+        </article>
+
+        <article class="card">
+          <h2>Excluded Tags</h2>
+          <p class="muted">These should remain untouched:</p>
+          <p><a href="#ignored">[3:18] inside a link</a></p>
+          <p><code>[4:1] inside code</code></p>
+        </article>
+
+        <article class="card">
+          <h2>Dynamic Content</h2>
+          <p>Click the button below to append a new reference after the widget has already initialized.</p>
+          <button id="append-reference" type="button">Append Dynamic Reference</button>
+          <div id="dynamic-area" class="muted">No dynamic references added yet.</div>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const dynamicArea = document.getElementById('dynamic-area');
+      const appendButton = document.getElementById('append-reference');
+      let appendCount = 0;
+
+      appendButton.addEventListener('click', () => {
+        appendCount += 1;
+        const block = document.createElement('div');
+        block.textContent =
+          appendCount % 2 === 0
+            ? `Dynamic block ${appendCount}: [Surah Al-Baqarah 2:255]`
+            : `Dynamic block ${appendCount}: Quran 3:18`;
+        dynamicArea.appendChild(block);
+      });
+
+      setTimeout(() => {
+        const intro = document.createElement('div');
+        intro.textContent = 'Auto-inserted after load: [Quran 112:1]';
+        dynamicArea.replaceChildren(intro);
+      }, 1200);
+    </script>
+  </body>
+</html>
